@@ -1,45 +1,305 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SPMB MTs RU</title>
-  <link rel="icon" href="https://cdn.jsdelivr.net/gh/mtsru/assets@main/logo web.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPMB MTs Roudhotul Ulum</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #eee;
-      overflow: hidden; /* Mencegah scroll ganda */
-    }
+    body { background-color: #f4f6f9; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    .card-header { background-color: #1b5e20; color: white; }
+    .btn-custom { background-color: #1b5e20; color: white; font-weight: 600; }
+    .btn-custom:hover { background-color: #144417; color: white; }
+    .section-title { border-bottom: 2px solid #1b5e20; padding-bottom: 5px; margin-bottom: 15px; font-weight: bold; color: #1b5e20; }
+    .header-logo { height: 60px; width: auto; object-fit: contain; }
 
-    .iframe-container {
-      width: 100%;
-      height: 100dvh; /* Menggunakan dvh agar pas di mobile browser */
-      overflow: hidden;
+    /* KOTAK INFORMASI PENTING */
+    .info-box-blue {
+      background-color: #e8f3fc;
+      border-left: 5px solid #1877f2;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 25px;
+      margin-bottom: 20px;
     }
-
-    iframe {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: none;
+    .info-title-blue {
+      color: #0d5cbe; font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
     }
+    .info-icon-circle {
+      display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background-color: #1877f2; color: white; border-radius: 50%; font-size: 12px; font-weight: bold; font-style: normal; font-family: serif;
+    }
+    .info-list-blue { padding-left: 20px; margin-bottom: 0; color: #1251a3; font-size: 0.95rem; font-weight: 500; }
+    .info-list-blue li { margin-bottom: 6px; line-height: 1.5; }
+    .info-sublist-blue { padding-left: 20px; margin-top: 4px; margin-bottom: 0; }
   </style>
 </head>
-<body>
-  <div class="iframe-container">
-    <iframe
-      id="app"
-      src="https://sites.google.com/view/spmbmtsru?usp=sharing"
-      scrolling="yes"
-      allowfullscreen="true"
-      webkitallowfullscreen="true"
-      mozallowfullscreen="true"
-      allow="fullscreen; camera; microphone; display-capture; geolocation;">
-    </iframe>
+<body class="py-4">
+
+<div class="container" style="max-width: 800px;">
+  <div class="card shadow">
+    
+    <!-- HEADER -->
+    <div class="card-header py-3 px-4">
+      <div class="d-flex align-items-center justify-content-center gap-3 flex-wrap flex-sm-nowrap">
+        <img src="https://cdn.jsdelivr.net/gh/mtsru/assets@main/logo web.png" alt="Logo MTs Roudhotul Ulum" class="header-logo">
+        <div class="text-center text-sm-start">
+          <h4 class="mb-0 fw-bold">FORMULIR PENDAFTARAN SPMB</h4>
+          <small class="d-block" style="opacity: 0.9; font-size: 0.88rem;">MTs. ROUDHOTUL ULUM SEPUTIH MATARAM (TA 2027/2028)</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body p-4">
+      
+      <form id="spmbForm" onsubmit="handleFormSubmit(this); return false;">
+        
+        <!-- Data Siswa -->
+        <div class="section-title">A. DATA CALON PESERTA DIDIK</div>
+        
+        <div class="mb-3">
+          <label class="form-label">1. Nama Lengkap Siswa <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" name="namaSiswa" required placeholder="Sesuai Ijazah SD/MI">
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">2. Jenis Kelamin <span class="text-danger">*</span></label>
+            <select class="form-select" name="jenisKelamin" required>
+              <option value="">-- Pilih --</option>
+              <option value="Laki-laki">Laki-laki</option>
+              <option value="Perempuan">Perempuan</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">4. Anak Ke- <span class="text-danger">*</span></label>
+            <input type="number" class="form-control" name="anakKe" min="1" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">3a. Tempat Lahir <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="tempatLahir" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">3b. Tanggal Lahir <span class="text-danger">*</span></label>
+            <input type="date" class="form-control" name="tanggalLahir" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">5a. Jumlah Saudara Kandung</label>
+            <input type="number" class="form-control" name="saudaraKandung" value="0" min="0">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">5b. Jumlah Saudara Tiri</label>
+            <input type="number" class="form-control" name="saudaraTiri" value="0" min="0">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">6. NISN <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="nisn" required placeholder="10 Digit NISN">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">7. Asal Sekolah <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="asalSekolah" required placeholder="SD/MI Asal">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">8. Alamat Siswa <span class="text-danger">*</span></label>
+          <textarea class="form-control" name="alamatSiswa" rows="2" required></textarea>
+        </div>
+
+        <!-- Data Orang Tua -->
+        <div class="section-title mt-4">B. DATA ORANG TUA / WALI</div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">9a. Nama Bapak <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="namaAyah" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">9b. Nama Ibu <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="namaIbu" required>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">10. Alamat Orang Tua <span class="text-danger">*</span></label>
+          <textarea class="form-control" name="alamatOrtu" rows="2" required></textarea>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">11a. Pendidikan Terakhir Ayah <span class="text-danger">*</span></label>
+            <select class="form-select" name="pendidikanAyah" required>
+              <option value="">-- Pilih --</option>
+              <option value="SD/MI">SD/MI</option>
+              <option value="SMP/MTs">SMP/MTs</option>
+              <option value="SMA/SMK/MA">SMA/SMK/MA</option>
+              <option value="D3/D4/S1">D3/D4/S1</option>
+              <option value="S2/S3">S2/S3</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">11b. Pendidikan Terakhir Ibu <span class="text-danger">*</span></label>
+            <select class="form-select" name="pendidikanIbu" required>
+              <option value="">-- Pilih --</option>
+              <option value="SD/MI">SD/MI</option>
+              <option value="SMP/MTs">SMP/MTs</option>
+              <option value="SMA/SMK/MA">SMA/SMK/MA</option>
+              <option value="D3/D4/S1">D3/D4/S1</option>
+              <option value="S2/S3">S2/S3</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">12. Pekerjaan Orang Tua <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="pekerjaanOrtu" required placeholder="Petani / Wiraswasta / PNS / dll">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">13. Penghasilan Orang Tua <small class="text-muted">(Opsional)</small></label>
+            <select class="form-select" name="penghasilanOrtu">
+              <option value="">-- Pilih (Opsional) --</option>
+              <option value="< Rp 1.000.000">&lt; Rp 1.000.000</option>
+              <option value="Rp 1.000.000 - Rp 3.000.000">Rp 1.000.000 - Rp 3.000.000</option>
+              <option value="Rp 3.000.000 - Rp 5.000.000">Rp 3.000.000 - Rp 5.000.000</option>
+              <option value="> Rp 5.000.000">&gt; Rp 5.000.000</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">14. Status Masuk <span class="text-danger">*</span></label>
+            <select class="form-select" name="statusMasuk" required>
+              <option value="Siswa Baru">Siswa Baru</option>
+              <option value="Pindahan">Pindahan</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">15. Nomor Telp/WhatsApp <span class="text-danger">*</span></label>
+            <input type="tel" class="form-control" name="noWhatsapp" required placeholder="08xxxxxxxxxx">
+          </div>
+        </div>
+
+        <!-- INFORMASI PENTING -->
+        <div class="info-box-blue">
+          <div class="info-title-blue">
+            <span class="info-icon-circle">i</span>
+            <span>Informasi Penting:</span>
+          </div>
+          <ol class="info-list-blue">
+            <li>Pastikan data yang diisi sesuai dengan dokumen asli</li>
+            <li>Simpan bukti pendaftaran untuk proses daftar ulang</li>
+            <li>Saat daftar ulang, wajib membawa berkas fisik dalam <strong>Map Warna Merah</strong>:
+              <ul class="info-sublist-blue">
+                <li>Foto copy Ijazah SD/MI berlegalisir (2 Lembar)</li>
+                <li>Foto copy KK (1 Lembar)</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Tombol Submit -->
+        <div class="d-grid gap-2">
+          <button type="submit" id="btnSubmit" class="btn btn-custom btn-lg">Kirim & Cetak Formulir PDF</button>
+        </div>
+
+      </form>
+
+      <!-- Status Display -->
+      <div id="statusArea" class="mt-4 text-center" style="display: none;">
+        <div id="loadingSpinner" class="spinner-border text-success" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p id="statusText" class="mt-2 fw-bold text-secondary">Sedang memproses template & mencetak PDF...</p>
+      </div>
+
+    </div>
   </div>
+
+  <!-- FOOTER -->
+  <footer class="text-center text-muted mt-4 mb-2" style="font-size: 0.85rem;">
+    <p class="mb-1">&copy; MTs Roudhotul Ulum Seputih Mataram. All Rights Reserved.</p>
+    <small class="text-secondary">Sistem Pendaftaran Murid Baru (SPMB) Online</small>
+  </footer>
+
+</div>
+
+<script>
+  // GANTI LINK DI BAWAH DENGAN URL WEB APP APPS SCRIPT ANDA
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuQrJKevC_rqrbWLyfuRoeEOnru-vbdgqUERgwApJ_0qmtIoduc1UEvdMeJWvLb1Gq/exec";
+
+  function handleFormSubmit(formElement) {
+    const btnSubmit = document.getElementById('btnSubmit');
+    const statusArea = document.getElementById('statusArea');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const statusText = document.getElementById('statusText');
+
+    btnSubmit.disabled = true;
+    statusArea.style.display = 'block';
+    loadingSpinner.style.display = 'inline-block';
+    statusText.innerText = "Sedang memproses template & mencetak PDF...";
+
+    // Ambil data dari form
+    const formData = new FormData(formElement);
+    const dataObj = {};
+    formData.forEach((value, key) => dataObj[key] = value);
+
+    // Kirim data via HTTP Fetch ke Google Apps Script
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(dataObj)
+    })
+    .then(res => res.json())
+    .then(response => {
+      btnSubmit.disabled = false;
+
+      if (response.status === 'success') {
+        statusText.innerText = "Selesai! Formulir PDF terunduh otomatis.";
+
+        // Unduh Otomatis PDF
+        const byteCharacters = atob(response.base64Pdf);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = response.fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        setTimeout(() => {
+          loadingSpinner.style.display = 'none';
+        }, 1500);
+
+      } else {
+        loadingSpinner.style.display = 'none';
+        statusText.innerText = "Gagal membuat PDF: " + response.message;
+        alert("Terjadi kesalahan: " + response.message);
+      }
+    })
+    .catch(err => {
+      loadingSpinner.style.display = 'none';
+      btnSubmit.disabled = false;
+      statusText.innerText = "Terjadi kesalahan koneksi server.";
+      alert("Error: " + err);
+    });
+  }
+</script>
+
 </body>
 </html>
